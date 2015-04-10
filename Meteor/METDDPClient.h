@@ -126,6 +126,10 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 - (void)clientDidEstablishConnection:(METDDPClient *)client;
 - (void)client:(METDDPClient *)client didFailWithError:(NSError *)error;
 
+// Raw access to DDP messages on the wire
+- (void)client:(METDDPClient *)client willSendDDPMessage:(NSDictionary *)message;
+- (void)client:(METDDPClient *)client didReceiveDDPMessage:(NSDictionary *)message;
+
 @end
 
 NS_ASSUME_NONNULL_END

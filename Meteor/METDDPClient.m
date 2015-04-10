@@ -247,6 +247,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   [self establishConnection];
 }
 
+- (void)connection:(METDDPConnection *)connection willSendMessage:(NSDictionary *)message {
+}
+
 - (void)connection:(METDDPConnection *)connection didReceiveMessage:(NSDictionary *)message {
   [self handleReceivedMessage:message];
 }

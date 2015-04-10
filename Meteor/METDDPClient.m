@@ -530,7 +530,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   if (parameters) {
     message[@"params"] = parameters;
   }
-  
+  if ([_delegate respondsToSelector:@selector(client:willSubscribe:)]) {
+    [_delegate client:self willSubscribe:subscription];
+  }
   [self sendMessage:message];
 }
 
@@ -540,7 +542,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 
 - (void)sendUnsubMessageForSubscription:(METSubscription *)subscription {
   NSParameterAssert(subscription);
-  
+  if ([_delegate respondsToSelector:@selector(client:willUnsubscribe:)]) {
+    [_delegate client:self willUnsubscribe:subscription];
+  }
   [self sendMessage:@{@"msg": @"unsub", @"id": subscription.identifier}];
 }
 
@@ -604,7 +608,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   if (randomSeed) {
     message[@"randomSeed"] = randomSeed;
   }
-  
+  if ([_delegate respondsToSelector:@selector(client:willCallMethod:)]) {
+    [_delegate client:self willCallMethod:methodInvocation];
+  }
   [self sendMessage:message];
 }
 

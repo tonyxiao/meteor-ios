@@ -52,6 +52,7 @@ typedef void (^METLogOutCompletionHandler)(NSError *error);
 
 @interface METDDPClient : NSObject
 
+- (instancetype)initWithConnection:(METDDPConnection *)connection account:(METAccount *)account;
 - (instancetype)initWithConnection:(METDDPConnection *)connection;
 - (instancetype)initWithServerURL:(NSURL *)serverURL;
 
@@ -62,7 +63,7 @@ typedef void (^METLogOutCompletionHandler)(NSError *error);
 
 @property (assign, nonatomic, readonly, getter=isConnected) BOOL connected;
 @property (assign, nonatomic, readonly) METDDPConnectionStatus connectionStatus;
-
+@property (copy, nonatomic) METAccount *account;
 @property (strong, nonatomic, readonly) METDatabase *database;
 
 - (METSubscription *)addSubscriptionWithName:(NSString *)name;
@@ -78,6 +79,7 @@ typedef void (^METLogOutCompletionHandler)(NSError *error);
 @property (assign, nonatomic, readonly, getter=isLoggingIn) BOOL loggingIn;
 @property (copy, nonatomic, readonly) NSString *userID;
 
+- (void)loginWithMethodName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METLogInCompletionHandler)completionHandler;
 - (void)logoutWithCompletionHandler:(METLogOutCompletionHandler)completionHandler;
 
 @end

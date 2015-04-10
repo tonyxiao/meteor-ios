@@ -84,6 +84,14 @@
   return subscription;
 }
 
+- (METSubscription *)subscriptionForSubscriptionID:(NSString *)subscriptionID {
+    __block METSubscription *subscription;
+  dispatch_sync(_queue, ^{
+    subscription = _subscriptionsByID[subscriptionID];
+  });
+  return subscription;
+}
+
 - (METSubscription *)existingSubscriptionWithName:(NSString *)name parameters:(NSArray *)parameters {
   __block METSubscription *existingSubscription;
   

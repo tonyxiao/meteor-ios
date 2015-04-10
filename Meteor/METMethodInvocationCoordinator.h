@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (getter=isSuspended) BOOL suspended;
 
 - (void)addMethodInvocation:(METMethodInvocation *)methodInvocation;
+- (METMethodInvocation *)methodInvocationForMethodID:(NSString *)methodID;
 
 - (void)didReceiveResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID;
 - (void)didReceiveUpdatesDoneForMethodID:(NSString *)methodID;

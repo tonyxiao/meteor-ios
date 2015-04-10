@@ -178,6 +178,12 @@
   }
 }
 
+- (METMethodInvocation *)methodInvocationForMethodID:(NSString *)methodID {
+  @synchronized(self) {
+    return _methodInvocationsByMethodID[methodID];
+  }
+}
+
 - (void)didReceiveResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID {
   @synchronized(self) {
     METMethodInvocation *methodInvocation = _methodInvocationsByMethodID[methodID];

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NSTimeInterval defaultNotInUseTimeout;
 
 - (METSubscription *)addSubscriptionWithName:(NSString *)name parameters:(nullable NSArray *)parameters completionHandler:(nullable METSubscriptionCompletionHandler)completionHandler;
+- (METSubscription *)subscriptionForSubscriptionID:(NSString *)subscriptionID;
 - (void)removeSubscription:(METSubscription *)subscription;
 
 - (void)didReceiveReadyForSubscriptionWithID:(NSString *)subscriptionID;

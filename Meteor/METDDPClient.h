@@ -24,6 +24,7 @@
 
 @class METDDPConnection;
 @class METDatabase;
+@class METMethodInvocation;
 @protocol METDDPClientDelegate;
 @class METAccount;
 
@@ -123,10 +124,34 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 
 @optional
 
+// General info and connection status
+- (void)clientWillConnect:(METDDPClient *)client;
+- (void)clientWillDisconnect:(METDDPClient *)client;
 - (void)clientDidEstablishConnection:(METDDPClient *)client;
 - (void)client:(METDDPClient *)client didFailWithError:(NSError *)error;
 
-// Raw access to DDP messages on the wire
+// Login
+- (void)client:(METDDPClient *)client willLoginWithMethodName:(NSString *)methodName parameters:(NSArray *)parameters;
+- (void)client:(METDDPClient *)client didSucceedLoginToAccount:(METAccount *)account;
+- (void)client:(METDDPClient *)client didFailLoginWithWithError:(NSError *)error;
+
+// Logout
+- (void)clientWillLogout:(METDDPClient *)client;
+- (void)clientDidLogout:(METDDPClient *)client;
+
+// Subscriptions
+- (void)client:(METDDPClient *)client willSubscribe:(METSubscription *)subscription;
+- (void)client:(METDDPClient *)client willUnsubscribe:(METSubscription *)subscription;
+- (void)client:(METDDPClient *)client didReceiveError:(NSError *)error forSubscription:(METSubscription *)subscription;
+- (void)client:(METDDPClient *)client didReceiveReadyForSubscription:(METSubscription *)subscription;
+
+// RPC Calls
+- (void)client:(METDDPClient *)client willCallMethod:(METMethodInvocation *)methodInvocation;
+- (void)client:(METDDPClient *)client didReceiveResult:(id)result error:(NSError *)error forMethod:(METMethodInvocation *)methodInvocation;
+- (void)client:(METDDPClient *)client didReceiveUpdatesForMethod:(METMethodInvocation *)methodInvocation;
+
+// More Advanced: Raw access to DDP messages on the wire
+// Shouldn't have to really ever use this for anything more than logging and debugging
 - (void)client:(METDDPClient *)client willSendDDPMessage:(NSDictionary *)message;
 - (void)client:(METDDPClient *)client didReceiveDDPMessage:(NSDictionary *)message;
 

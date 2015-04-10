@@ -6,10 +6,10 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -50,7 +50,6 @@ typedef NS_OPTIONS(NSInteger, METMethodCallOptions) {
 @property (strong, nonatomic, readwrite) METDatabase *database;
 
 @property (assign, nonatomic, readwrite, getter=isLoggingIn) BOOL loggingIn;
-@property (nullable, copy, nonatomic) METAccount *account;
 
 - (void)processDataUpdate:(METDataUpdate *)update;
 
@@ -64,8 +63,6 @@ typedef NS_OPTIONS(NSInteger, METMethodCallOptions) {
 @property (strong, nonatomic, readonly) METMethodInvocationCoordinator *methodInvocationCoordinator;
 @property (nullable, strong, nonatomic, readonly) METMethodInvocationContext *currentMethodInvocationContext;
 - (void)sendMethodMessageForMethodInvocation:(METMethodInvocation *)methodInvocation;
-
-- (void)loginWithMethodName:(NSString *)methodName parameters:(nullable NSArray *)parameters completionHandler:(nullable METLogInCompletionHandler)completionHandler;
 
 - (NSArray *)convertParameters:(NSArray *)parameters;
 

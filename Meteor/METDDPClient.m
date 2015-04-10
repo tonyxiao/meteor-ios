@@ -22,7 +22,7 @@
 #import "METDDPClient_Internal.h"
 
 #import <UIKit/UIKit.h>
-
+#import "METAccount.h"
 #import "METDDPConnection.h"
 #import "METRetryStrategy.h"
 #import "METTimer.h"
@@ -85,7 +85,7 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 
 #pragma mark - Lifecycle
 
-- (instancetype)initWithConnection:(METDDPConnection *)connection {
+- (instancetype)initWithConnection:(METDDPConnection *)connection account:(METAccount *)account {
   self = [super init];
   if (self) {
     _queue = dispatch_queue_create("com.meteor.DDPClient", DISPATCH_QUEUE_SERIAL);
@@ -114,7 +114,7 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
     _supportedProtocolVersions = @[@"1", @"pre2", @"pre1"];
     _suggestedProtocolVersion = @"1";
     
-    _account = [METAccount defaultAccount];
+    _account = account;
     
     _database = [[METDatabase alloc] initWithClient:self];
     
@@ -127,6 +127,10 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
   }
   return self;
+}
+
+- (instancetype)initWithConnection:(METDDPConnection *)connection {
+  return [self initWithConnection:connection account:[METAccount defaultAccount]];
 }
 
 - (instancetype)initWithServerURL:(NSURL *)serverURL {

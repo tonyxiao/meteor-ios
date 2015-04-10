@@ -24,6 +24,7 @@
 #import "METIncrementalStore.h"
 #import "METDocumentKey.h"
 #import "NSArray+METAdditions.h"
+#import "METAccount.h"
 
 @implementation METCoreDataDDPClient {
 }
@@ -35,7 +36,11 @@
 }
 
 - (instancetype)initWithConnection:(METDDPConnection *)connection managedObjectModel:(NSManagedObjectModel *)managedObjectModel {
-  self = [super initWithConnection:connection];
+  return [self initWithConnection:connection account:[METAccount defaultAccount] managedObjectModel:managedObjectModel];
+}
+
+- (instancetype)initWithConnection:(METDDPConnection *)connection account:(METAccount *)account managedObjectModel:(NSManagedObjectModel *)managedObjectModel {
+  self = [super initWithConnection:connection account:account];
   if (self) {
     NSError *error = nil;
     

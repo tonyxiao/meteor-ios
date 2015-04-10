@@ -31,6 +31,7 @@
 @property (assign, nonatomic) NSTimeInterval defaultNotInUseTimeout;
 
 - (METSubscription *)addSubscriptionWithName:(NSString *)name parameters:(NSArray *)parameters completionHandler:(METSubscriptionCompletionHandler)completionHandler;
+- (METSubscription *)subscriptionForSubscriptionID:(NSString *)subscriptionID;
 - (void)removeSubscription:(METSubscription *)subscription;
 
 - (void)didReceiveReadyForSubscriptionWithID:(NSString *)subscriptionID;

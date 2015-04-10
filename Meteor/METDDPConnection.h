@@ -44,6 +44,7 @@
 @protocol METDDPConnectionDelegate <NSObject>
 
 - (void)connectionDidOpen:(METDDPConnection *)connection;
+- (void)connection:(METDDPConnection *)connection willSendMessage:(NSDictionary *)message;
 - (void)connection:(METDDPConnection *)connection didReceiveMessage:(NSDictionary *)message;
 - (void)connection:(METDDPConnection *)connection didFailWithError:(NSError *)error;
 - (void)connectionDidClose:(METDDPConnection *)connection;

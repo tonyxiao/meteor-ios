@@ -79,6 +79,7 @@ NS_INLINE BOOL METShouldLogDDPMessages() {
     if (METShouldLogDDPMessages()) {
       NSLog(@"> %@", message);
     }
+    [_delegate connection:self willSendMessage:message];
     [_webSocket send:data];
   } else {
     [_delegate connection:self didFailWithError:error];

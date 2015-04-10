@@ -248,10 +248,16 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 }
 
 - (void)connection:(METDDPConnection *)connection willSendMessage:(NSDictionary *)message {
+  if ([_delegate respondsToSelector:@selector(client:willSendDDPMessage:)]) {
+    [_delegate client:self willSendDDPMessage:message];
+  }
 }
 
 - (void)connection:(METDDPConnection *)connection didReceiveMessage:(NSDictionary *)message {
   [self handleReceivedMessage:message];
+  if ([_delegate respondsToSelector:@selector(client:didReceiveDDPMessage:)]) {
+    [_delegate client:self didReceiveDDPMessage:message];
+  }
 }
 
 - (void)connection:(METDDPConnection *)connection didFailWithError:(NSError *)error {

@@ -91,4 +91,8 @@ typedef void (^METLogOutCompletionHandler)(NSError *error);
 - (void)clientDidEstablishConnection:(METDDPClient *)client;
 - (void)client:(METDDPClient *)client didFailWithError:(NSError *)error;
 
+// Raw access to DDP messages on the wire
+- (void)client:(METDDPClient *)client willSendDDPMessage:(NSDictionary *)message;
+- (void)client:(METDDPClient *)client didReceiveDDPMessage:(NSDictionary *)message;
+
 @end

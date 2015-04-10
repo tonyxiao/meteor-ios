@@ -189,7 +189,10 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 - (void)connect {
   @synchronized(self) {
     if (_connectionStatus == METDDPConnectionStatusOffline || _connectionStatus == METDDPConnectionStatusWaiting) {
-        _numberOfConnectionRetryAttempts = 0;
+      if ([_delegate respondsToSelector:@selector(clientWillConnect:)]) {
+        [_delegate clientWillConnect:self];
+      }
+      _numberOfConnectionRetryAttempts = 0;
       [self tryConnecting];
     }
   }
@@ -197,6 +200,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 
 - (void)disconnect {
   @synchronized(self) {
+    if ([_delegate respondsToSelector:@selector(clientWillDisconnect:)]) {
+      [_delegate clientWillDisconnect:self];
+    }
     _methodInvocationCoordinator.suspended = YES;
     [_heartbeat stop];
     _heartbeat = nil;
@@ -643,6 +649,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   self.loggingIn = YES;
   __block BOOL reconnected = NO;
   __weak METDDPClient *weakSelf = self;
+  if ([_delegate respondsToSelector:@selector(client:willLoginWithMethodName:parameters:)]) {
+    [_delegate client:self willLoginWithMethodName:methodName parameters:parameters];
+  }
   [self callMethodWithName:methodName parameters:parameters options:METMethodCallOptionsBarrier receivedResultHandler:^(id result, NSError *error) {
     self.pendingLoginResumeHandler = ^{
       reconnected = YES;
@@ -657,6 +666,15 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
     self.account = [self accountFromLoginMethodResult:result];
     if (completionHandler) {
       completionHandler(error);
+    }
+    if (self.account && !error) {
+      if ([_delegate respondsToSelector:@selector(client:didSucceedLoginToAccount:)]) {
+        [_delegate client:self didSucceedLoginToAccount:self.account];
+      }
+    } else {
+      if ([_delegate respondsToSelector:@selector(client:didFailLoginWithWithError:)]) {
+        [_delegate client:self didFailLoginWithWithError:error];
+      }
     }
   }];
 }
@@ -681,10 +699,16 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 }
 
 - (void)logoutWithCompletionHandler:(METLogOutCompletionHandler)completionHandler {
+  if ([_delegate respondsToSelector:@selector(clientWillLogout:)]) {
+    [_delegate clientWillLogout:self];
+  }
   [self callMethodWithName:@"logout" parameters:nil options:METMethodCallOptionsBarrier completionHandler:^(id result, NSError *error) {
     self.account = nil;
     if (completionHandler) {
       completionHandler(error);
+    }
+    if ([_delegate respondsToSelector:@selector(clientDidLogout:)]) {
+      [_delegate clientDidLogout:self];
     }
   }];
 }

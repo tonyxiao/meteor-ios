@@ -11,10 +11,10 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Meteor/**/*.{h,m}'
-  s.public_header_files = 'Meteor/{METDDPClient,METDDPClient+AccountsPassword,METSubscription,METDatabase,METCollection,METDocument,METDocumentKey,METDatabaseChanges,METDocumentChangeDetails,METCoreDataDDPClient,METIncrementalStore,METAccount}.h'
+  s.public_header_files = 'Meteor/{METDDPClient,METDDPClient+AccountsPassword,METSubscription,METDatabase,METCollection,METDocument,METDocumentKey,METDatabaseChanges,METDocumentChangeDetails,METCoreDataDDPClient,METIncrementalStore,METAccount,METMethodInvocation}.h'
 
 	s.framework = 'CoreData'
-  
+
   s.dependency 'PocketSocket'
   s.dependency 'InflectorKit'
   s.dependency 'SimpleKeychain'

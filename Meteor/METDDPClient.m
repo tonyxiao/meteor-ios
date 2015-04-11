@@ -133,8 +133,12 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   return [self initWithConnection:connection account:[METAccount defaultAccount]];
 }
 
+- (instancetype)initWithServerURL:(NSURL *)serverURL account:(METAccount *)account {
+  return [self initWithConnection:[[METDDPConnection alloc] initWithServerURL:serverURL] account:account];
+}
+
 - (instancetype)initWithServerURL:(NSURL *)serverURL {
-  return [self initWithConnection:[[METDDPConnection alloc] initWithServerURL:serverURL]];
+  return [self initWithServerURL:serverURL account:[METAccount defaultAccount]];
 }
 
 - (void)dealloc {

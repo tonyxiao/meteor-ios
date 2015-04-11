@@ -31,6 +31,10 @@
 
 #pragma mark - Lifecycle
 
+- (instancetype)initWithServerURL:(NSURL *)serverURL account:(METAccount *)account {
+    return [self initWithConnection:[[METDDPConnection alloc] initWithServerURL:serverURL] account:account managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
+}
+
 - (instancetype)initWithConnection:(METDDPConnection *)connection {
   return [self initWithConnection:connection managedObjectModel:[NSManagedObjectModel mergedModelFromBundles:nil]];
 }

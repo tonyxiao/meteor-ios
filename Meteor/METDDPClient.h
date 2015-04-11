@@ -63,6 +63,7 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 
 - (instancetype)initWithConnection:(nullable METDDPConnection *)connection account:(nullable METAccount *)account;
 - (instancetype)initWithConnection:(nullable METDDPConnection *)connection;
+- (instancetype)initWithServerURL:(NSURL *)serverURL account:(nullable METAccount *)account;
 - (instancetype)initWithServerURL:(NSURL *)serverURL;
 
 #pragma mark - Delegate

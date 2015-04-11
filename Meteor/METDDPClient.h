@@ -110,6 +110,9 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 
 #pragma mark - Accounts
 /// @name Accessing Account Status
+- (nullable id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METMethodCompletionHandler)completionHandler methodStub:(METMethodStub)stub;
+- (nullable id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METMethodCompletionHandler)completionHandler;
+- (nullable id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters;
 
 @property (assign, nonatomic, readonly, getter=isLoggingIn) BOOL loggingIn;
 @property (nullable, copy, nonatomic, readonly) NSString *userID;

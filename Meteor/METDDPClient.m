@@ -592,7 +592,11 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 }
 
 - (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METMethodCompletionHandler)completionHandler {
-  return [self callMethodWithName:methodName parameters:parameters options:0 completionHandler:completionHandler];
+  return [self callMethodWithName:methodName parameters:parameters completionHandler:completionHandler methodStub:nil];
+}
+
+- (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METMethodCompletionHandler)completionHandler methodStub:(METMethodStub)stub {
+  return [self callMethodWithName:methodName parameters:parameters options:0 receivedResultHandler:nil completionHandler:completionHandler methodStub:stub];
 }
 
 - (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters options:(METMethodCallOptions)options completionHandler:(METMethodCompletionHandler)completionHandler {
@@ -600,7 +604,11 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 }
 
 - (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters options:(METMethodCallOptions)options receivedResultHandler:(METMethodCompletionHandler)receivedResultHandler completionHandler:(METMethodCompletionHandler)completionHandler {
-  return [_methodInvocationCoordinator callMethodWithName:methodName parameters:[self convertParameters:parameters] options:options receivedResultHandler:receivedResultHandler completionHandler:completionHandler];
+  return [self callMethodWithName:methodName parameters:parameters options:options receivedResultHandler:receivedResultHandler completionHandler:completionHandler methodStub:nil];
+}
+
+- (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters options:(METMethodCallOptions)options receivedResultHandler:(METMethodCompletionHandler)receivedResultHandler completionHandler:(METMethodCompletionHandler)completionHandler methodStub:(METMethodStub)stub {
+  return [_methodInvocationCoordinator callMethodWithName:methodName parameters:[self convertParameters:parameters] options:options receivedResultHandler:receivedResultHandler completionHandler:completionHandler methodStub:stub];
 }
 
 - (METMethodInvocationContext *)currentMethodInvocationContext {

@@ -11,8 +11,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Meteor/**/*.{h,m}'
-  s.public_header_files = 'Meteor/{METDDPClient,METDDPClient+AccountsPassword,METSubscription,METDatabase,METCollection,METDocument,METDocumentKey,METDatabaseChanges,METDocumentChangeDetails,METCoreDataDDPClient,METIncrementalStore}.h'
-  
+  s.public_header_files = 'Meteor/{METDDPClient,METDDPClient+AccountsPassword,METSubscription,METDatabase,METCollection,METDocument,METDocumentKey,METDatabaseChanges,METDocumentChangeDetails,METCoreDataDDPClient,METIncrementalStore,METAccount}.h'
+
 	s.framework = 'CoreData'
   
   s.dependency 'PocketSocket'

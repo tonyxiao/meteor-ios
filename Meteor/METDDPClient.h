@@ -75,6 +75,7 @@ typedef void (^METLogOutCompletionHandler)(NSError *error);
 - (void)removeSubscription:(METSubscription *)subscription;
 
 - (void)defineStubForMethodWithName:(NSString *)methodName usingBlock:(METMethodStub)block;
+- (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METMethodCompletionHandler)completionHandler methodStub:(METMethodStub)stub;
 - (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters completionHandler:(METMethodCompletionHandler)completionHandler;
 - (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters;
 

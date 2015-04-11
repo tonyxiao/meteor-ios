@@ -71,12 +71,16 @@
   }
 }
 
-- (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters options:(METMethodCallOptions)options receivedResultHandler:(METMethodCompletionHandler)receivedResultHandler completionHandler:(METMethodCompletionHandler)completionHandler {
+- (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters options:(METMethodCallOptions)options receivedResultHandler:(METMethodCompletionHandler)receivedResultHandler completionHandler:(METMethodCompletionHandler)completionHandler methodStub:(METMethodStub)stub {
   @synchronized(self) {
     METMethodInvocationContext *enclosingMethodInvocationContext = [_methodInvocationContextDynamicVariable currentValue];
     BOOL alreadyInSimulation = enclosingMethodInvocationContext != nil;
     
-    METMethodStub stub = _methodStubsByName[methodName];
+    if (stub != nil) {
+      stub = [stub copy];
+    } else {
+      stub = _methodStubsByName[methodName];
+    }
     __block id resultFromStub;
     
     if (!alreadyInSimulation) {

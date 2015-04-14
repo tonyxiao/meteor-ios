@@ -452,7 +452,7 @@
 
 - (void)notifyDidReceiveUpdatesDoneForLastMethodInvocation {
   METMethodInvocationCoordinator *methodInvocationCoordinator = [_client methodInvocationCoordinator];
-  [methodInvocationCoordinator didReceiveUpdatesDoneForMethodID:[methodInvocationCoordinator lastMethodInvocation].methodID];
+  [methodInvocationCoordinator handleUpdatesDoneForMethodID:[methodInvocationCoordinator lastMethodInvocation].methodID completion:nil];
 }
 
 @end

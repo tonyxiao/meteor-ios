@@ -133,7 +133,7 @@
   });
 }
 
-- (void)didReceiveReadyForSubscriptionWithID:(NSString *)subscriptionID {
+- (void)handleReadyForSubscriptionWithID:(NSString *)subscriptionID completion:(METSubscriptionBlock)completion {
   NSParameterAssert(subscriptionID);
   
   dispatch_async(_queue, ^{
@@ -147,11 +147,14 @@
     
     [_client.methodInvocationCoordinator performAfterAllCurrentlyBufferedDocumentsAreFlushed:^{
       [subscription didChangeStatus:METSubscriptionStatusReady error:nil];
+      if (completion != nil) {
+        completion(subscription);
+      }
     }];
   });
 }
 
-- (void)didReceiveNosubForSubscriptionWithID:(NSString *)subscriptionID error:(NSError *)error {
+- (void)handleNosubForSubscriptionWithID:(NSString *)subscriptionID error:(NSError *)error completion:(METSubscriptionBlock)completion {
   NSParameterAssert(subscriptionID);
 
   dispatch_async(_queue, ^{
@@ -163,6 +166,9 @@
     [self removeSubscriptionToBeRevivedAfterConnect:subscription];
 
     [subscription didChangeStatus:METSubscriptionStatusError error:error];
+    if (completion != nil) {
+      completion(subscription);
+    }
   });
 }
 

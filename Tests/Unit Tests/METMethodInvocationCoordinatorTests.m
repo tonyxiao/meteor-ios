@@ -203,11 +203,11 @@
   
   XCTAssertNotNil([_coordinator bufferedDocumentForKey:[METDocumentKey keyWithCollectionName:@"players" documentID: @"lovelace"]]);
   
-  [_coordinator didReceiveUpdatesDoneForMethodID:methodInvocation1.methodID];
+  [_coordinator handleUpdatesDoneForMethodID:methodInvocation1.methodID completion:nil];
   
   XCTAssertNotNil([_coordinator bufferedDocumentForKey:[METDocumentKey keyWithCollectionName:@"players" documentID: @"lovelace"]]);
   
-  [_coordinator didReceiveUpdatesDoneForMethodID:methodInvocation2.methodID];
+  [_coordinator handleUpdatesDoneForMethodID:methodInvocation2.methodID completion:nil];
   
   XCTAssertNil([_coordinator bufferedDocumentForKey:[METDocumentKey keyWithCollectionName:@"players" documentID: @"lovelace"]]);
 }

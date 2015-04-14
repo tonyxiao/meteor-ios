@@ -563,21 +563,23 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   NSDictionary *errorResponse = message[@"error"];
   NSError *error = errorResponse ? [self errorWithErrorResponse:errorResponse] : nil;
   
-  BOOL responds = [_delegate respondsToSelector:@selector(client:didReceiveError:forSubscription:)];
-  METSubscription *subscription = responds ? [_subscriptionManager subscriptionForSubscriptionID:subscriptionID] : nil;
-  [_subscriptionManager didReceiveNosubForSubscriptionWithID:subscriptionID error:error];
-  responds ? [_delegate client:self didReceiveError:error forSubscription:subscription] : nil;
+  [_subscriptionManager handleNosubForSubscriptionWithID:subscriptionID error:error completion:^(METSubscription *subscription) {
+      if ([_delegate respondsToSelector:@selector(client:didReceiveError:forSubscription:)]) {
+          [_delegate client:self didReceiveError:error forSubscription:subscription];
+      }
+  }];
 }
 
 - (void)didReceiveReadyMessage:(NSDictionary *)message {
   NSArray *subscriptionIDs = message[@"subs"];
   if (!subscriptionIDs) return;
   
-  BOOL responds = [_delegate respondsToSelector:@selector(client:didReceiveReadyForSubscription:)];
   for (NSString *subscriptionID in subscriptionIDs) {
-    METSubscription *subscription = responds ? [_subscriptionManager subscriptionForSubscriptionID:subscriptionID] : nil;
-    [_subscriptionManager didReceiveReadyForSubscriptionWithID:subscriptionID];
-    responds ? [_delegate client:self didReceiveReadyForSubscription:subscription] : nil;
+    [_subscriptionManager handleReadyForSubscriptionWithID:subscriptionID completion:^(METSubscription *subscription) {
+        if ([_delegate respondsToSelector:@selector(client:didReceiveReadyForSubscription:)]) {
+            [_delegate client:self didReceiveReadyForSubscription:subscription];
+        }
+    }];
   }
 }
 
@@ -643,20 +645,23 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   id result = message[@"result"];
   NSDictionary *errorResponse = message[@"error"];
   NSError *error = errorResponse ? [self errorWithErrorResponse:errorResponse] : nil;
-  BOOL responds = [_delegate respondsToSelector:@selector(client:didReceiveResult:error:forMethod:)];
-  METMethodInvocation *method = responds ? [_methodInvocationCoordinator methodInvocationForMethodID:methodID] : nil;
-  [_methodInvocationCoordinator didReceiveResult:result error:error forMethodID:methodID];
-  responds ? [_delegate client:self didReceiveResult:result error:error forMethod:method] : nil;
+
+  [_methodInvocationCoordinator handleResult:result error:error forMethodID:methodID completion:^(METMethodInvocation *methodInvocation) {
+    if ([_delegate respondsToSelector:@selector(client:didReceiveResult:error:forMethod:)]) {
+      [_delegate client:self didReceiveResult:result error:error forMethod:methodInvocation];
+    }
+  }];
 }
 
 - (void)didReceiveUpdatedMessage:(NSDictionary *)message {
   NSArray *methodIDs = message[@"methods"];
 
-  BOOL responds = [_delegate respondsToSelector:@selector(client:didReceiveResult:error:forMethod:)];
   for (NSString *methodID in methodIDs) {
-    METMethodInvocation *method = responds ? [_methodInvocationCoordinator methodInvocationForMethodID:methodID] : nil;
-    [_methodInvocationCoordinator didReceiveUpdatesDoneForMethodID:methodID];
-    responds ? [_delegate client:self didReceiveUpdatesForMethod:method] : nil;
+    [_methodInvocationCoordinator handleUpdatesDoneForMethodID:methodID completion:^(METMethodInvocation *methodInvocation) {
+      if ([_delegate respondsToSelector:@selector(client:didReceiveResult:error:forMethod:)]) {
+        [_delegate client:self didReceiveUpdatesForMethod:methodInvocation];
+      }
+    }];
   }
 }
 

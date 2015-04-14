@@ -6,10 +6,10 @@
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in
 // all copies or substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -27,6 +27,7 @@
 @class METDataUpdate;
 
 NS_ASSUME_NONNULL_BEGIN
+typedef void (^METMethodInvocationBlock)(METMethodInvocation *methodInvocation);
 
 @interface METMethodInvocationCoordinator : NSObject
 
@@ -44,8 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addMethodInvocation:(METMethodInvocation *)methodInvocation;
 - (METMethodInvocation *)methodInvocationForMethodID:(NSString *)methodID;
 
-- (void)didReceiveResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID;
-- (void)didReceiveUpdatesDoneForMethodID:(NSString *)methodID;
+- (void)handleResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID completion:(METMethodInvocationBlock)completion;
+- (void)handleUpdatesDoneForMethodID:(NSString *)methodID completion:(METMethodInvocationBlock)completion;
 
 - (void)resetWhileAddingMethodInvocationsToTheFrontOfTheQueueUsingBlock:(void (^)())block;
 

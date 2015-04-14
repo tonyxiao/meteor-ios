@@ -50,7 +50,7 @@
     [expectation fulfill];
   }];
   
-  [_subscriptionManager didReceiveReadyForSubscriptionWithID:subscription.identifier];
+  [_subscriptionManager handleReadyForSubscriptionWithID:subscription.identifier completion:nil];
   
   [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }
@@ -67,7 +67,8 @@
     [expectation fulfill];
   }];
   
-  [_subscriptionManager didReceiveNosubForSubscriptionWithID:subscription.identifier error:expectedError];
+
+  [_subscriptionManager handleNosubForSubscriptionWithID:subscription.identifier error:expectedError completion:nil];
 
   [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }
@@ -98,7 +99,7 @@
 
 - (void)testReturningExistingSubscriptionInvokesCompletionHandlerImmediatelyIfSubscriptionIsReady {
   METSubscription *subscription1 = [_subscriptionManager addSubscriptionWithName:@"todos" parameters:@[@"bla"] completionHandler:nil];
-  [_subscriptionManager didReceiveReadyForSubscriptionWithID:subscription1.identifier];
+  [_subscriptionManager handleReadyForSubscriptionWithID:subscription1.identifier completion:nil];
   
   XCTestExpectation *expectation = [self expectationWithDescription:@"completion handler invoked"];
   [_subscriptionManager addSubscriptionWithName:@"todos" parameters:@[@"bla"] completionHandler:^(NSError *error) {
@@ -127,7 +128,7 @@
     [expectation2 fulfill];
   }];
   
-  [_subscriptionManager didReceiveReadyForSubscriptionWithID:subscription1.identifier];
+  [_subscriptionManager handleReadyForSubscriptionWithID:subscription1.identifier completion:nil];
   
   [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }
@@ -153,7 +154,7 @@
     [expectation2 fulfill];
   }];
   
-  [_subscriptionManager didReceiveNosubForSubscriptionWithID:subscription1.identifier error:expectedError];
+  [_subscriptionManager handleNosubForSubscriptionWithID:subscription1.identifier error:expectedError completion:nil];
   
   [self waitForExpectationsWithTimeout:1.0 handler:nil];
 }

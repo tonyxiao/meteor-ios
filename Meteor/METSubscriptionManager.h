@@ -24,6 +24,7 @@
 @class METDDPClient;
 
 NS_ASSUME_NONNULL_BEGIN
+typedef void (^METSubscriptionBlock)(METSubscription *subscription);
 
 @interface METSubscriptionManager : NSObject
 
@@ -36,8 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (METSubscription *)subscriptionForSubscriptionID:(NSString *)subscriptionID;
 - (void)removeSubscription:(METSubscription *)subscription;
 
-- (void)didReceiveReadyForSubscriptionWithID:(NSString *)subscriptionID;
-- (void)didReceiveNosubForSubscriptionWithID:(NSString *)subscriptionID error:(NSError *)error;
+- (void)handleReadyForSubscriptionWithID:(NSString *)subscriptionID completion:(METSubscriptionBlock)completion;
+- (void)handleNosubForSubscriptionWithID:(NSString *)subscriptionID error:(NSError *)error completion:(METSubscriptionBlock)completion;
 
 - (void)reviveReadySubscriptionsAfterReconnect;
 

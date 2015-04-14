@@ -188,7 +188,7 @@
   }
 }
 
-- (void)didReceiveResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID {
+- (void)handleResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID completion:(METMethodInvocationBlock)completion {
   @synchronized(self) {
     METMethodInvocation *methodInvocation = _methodInvocationsByMethodID[methodID];
     if (!methodInvocation) {
@@ -202,10 +202,13 @@
     }
     
     [methodInvocation didReceiveResult:result error:error];
+    if (completion != nil) {
+      completion(methodInvocation);
+    }
   }
 }
 
-- (void)didReceiveUpdatesDoneForMethodID:(NSString *)methodID {
+- (void)handleUpdatesDoneForMethodID:(NSString *)methodID completion:(METMethodInvocationBlock)completion {
   @synchronized(self) {
     METMethodInvocation *methodInvocation = _methodInvocationsByMethodID[methodID];
     if (!methodInvocation) {
@@ -236,6 +239,9 @@
     
     [self performAfterAllCurrentlyBufferedDocumentsAreFlushed:^{
       [methodInvocation didFlushUpdates];
+      if (completion != nil) {
+        completion(methodInvocation);
+      }
     }];
   }
 }

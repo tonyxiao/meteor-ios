@@ -107,7 +107,6 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
     _networkReachabilityManager = [[METNetworkReachabilityManager alloc] initWithHostName:connection.serverURL.host];
     _networkReachabilityManager.delegate = self;
     _networkReachabilityManager.delegateQueue = _queue;
-    [_networkReachabilityManager startMonitoring];
     
     _keepAliveBackgroundTask = UIBackgroundTaskInvalid;
     
@@ -192,6 +191,7 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 
 - (void)connect {
   @synchronized(self) {
+    [_networkReachabilityManager startMonitoring];
     if (_connectionStatus == METDDPConnectionStatusOffline || _connectionStatus == METDDPConnectionStatusWaiting) {
       if ([_delegate respondsToSelector:@selector(clientWillConnect:)]) {
         [_delegate clientWillConnect:self];

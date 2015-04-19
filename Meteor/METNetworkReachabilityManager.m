@@ -35,6 +35,7 @@ static void METNetworkReachabilityCallback(SCNetworkReachabilityRef target, SCNe
 
 @implementation METNetworkReachabilityManager {
   SCNetworkReachabilityRef _reachabilityRef;
+  BOOL _started;
 }
 
 #pragma mark - Lifecycle
@@ -61,14 +62,15 @@ static void METNetworkReachabilityCallback(SCNetworkReachabilityRef target, SCNe
 
 - (BOOL)startMonitoring {
   NSAssert(_delegateQueue != nil, @"Delegate queue should be set before calling startMonitoring");
-  
+  if (_started) {
+    return YES;
+  }
   SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
   
   if (SCNetworkReachabilitySetCallback(_reachabilityRef, METNetworkReachabilityCallback, &context)) {
-    return SCNetworkReachabilitySetDispatchQueue(_reachabilityRef, _delegateQueue);
+    _started = SCNetworkReachabilitySetDispatchQueue(_reachabilityRef, _delegateQueue);
   }
-  
-  return NO;
+  return _started;
 }
 
 - (void)stopMonitoring {

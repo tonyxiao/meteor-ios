@@ -183,6 +183,12 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   }
 }
 
+- (BOOL)isNetworkReachable {
+    @synchronized(self) {
+        return _networkReachabilityManager.reachabilityStatus == METNetworkReachabilityStatusReachable;
+    }
+}
+
 - (BOOL)isConnected {
   @synchronized(self) {
     return _connectionStatus == METDDPConnectionStatusConnected;
@@ -288,6 +294,9 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
   
   if (reachabilityStatus == METNetworkReachabilityStatusReachable && [UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
     [self connect];
+  }
+  if ([_delegate respondsToSelector:@selector(client:reachabilityStatusDidChange:)]) {
+    [_delegate client:self reachabilityStatusDidChange:reachabilityStatus == METNetworkReachabilityStatusReachable];
   }
 }
 

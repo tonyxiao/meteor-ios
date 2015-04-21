@@ -75,6 +75,7 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 /// @name Accessing Connection Status
 
 @property (nullable, strong, nonatomic, readonly) NSURL *serverURL;
+@property (assign, nonatomic, readonly, getter=isNetworkReachable) BOOL networkReachable;
 @property (assign, nonatomic, readonly, getter=isConnected) BOOL connected;
 @property (assign, nonatomic, readonly) METDDPConnectionStatus connectionStatus;
 
@@ -127,6 +128,8 @@ typedef void (^METLogOutCompletionHandler)(NSError * __nullable error);
 @protocol METDDPClientDelegate <NSObject>
 
 @optional
+
+- (void)client:(METDDPClient *)client reachabilityStatusDidChange:(BOOL)reachable;
 
 // General info and connection status
 - (void)clientWillConnect:(METDDPClient *)client;

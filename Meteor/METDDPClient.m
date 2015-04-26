@@ -185,7 +185,8 @@ NSString * const METDDPClientDidChangeAccountNotification = @"METDDPClientDidCha
 
 - (BOOL)isNetworkReachable {
     @synchronized(self) {
-        return _networkReachabilityManager.reachabilityStatus == METNetworkReachabilityStatusReachable;
+        // Assume reachable until proven otherwise
+        return _networkReachabilityManager.reachabilityStatus != METNetworkReachabilityStatusNotReachable;
     }
 }
 

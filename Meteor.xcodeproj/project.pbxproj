@@ -132,7 +132,7 @@
 		9FAB38D91AE3E88200E99519 /* METIncrementalStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAB388C1AE3E88100E99519 /* METIncrementalStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FAB38DA1AE3E88200E99519 /* METIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB388D1AE3E88100E99519 /* METIncrementalStore.m */; };
 		9FAB38DB1AE3E88200E99519 /* METMethodInvocation_Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAB388E1AE3E88100E99519 /* METMethodInvocation_Internal.h */; };
-		9FAB38DC1AE3E88200E99519 /* METMethodInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAB388F1AE3E88100E99519 /* METMethodInvocation.h */; };
+		9FAB38DC1AE3E88200E99519 /* METMethodInvocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAB388F1AE3E88100E99519 /* METMethodInvocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9FAB38DD1AE3E88200E99519 /* METMethodInvocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB38901AE3E88100E99519 /* METMethodInvocation.m */; };
 		9FAB38DE1AE3E88200E99519 /* METMethodInvocationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FAB38911AE3E88100E99519 /* METMethodInvocationContext.h */; };
 		9FAB38DF1AE3E88200E99519 /* METMethodInvocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FAB38921AE3E88100E99519 /* METMethodInvocationContext.m */; };
@@ -760,6 +760,7 @@
 				9FAB38C11AE3E88200E99519 /* METDDPClient+AccountsPassword.h in Headers */,
 				9FAB38EC1AE3E88200E99519 /* METSubscription.h in Headers */,
 				9FAB38B71AE3E88200E99519 /* METDatabase.h in Headers */,
+				9FAB38DC1AE3E88200E99519 /* METMethodInvocation.h in Headers */,
 				9FAB38B21AE3E88200E99519 /* METCollection.h in Headers */,
 				9FAB38C91AE3E88200E99519 /* METDocument.h in Headers */,
 				9FAB38CF1AE3E88200E99519 /* METDocumentKey.h in Headers */,
@@ -780,7 +781,6 @@
 				9FAB38E11AE3E88200E99519 /* METMethodInvocationCoordinator.h in Headers */,
 				9FAB38C31AE3E88200E99519 /* METDDPConnection.h in Headers */,
 				9FAB38E31AE3E88200E99519 /* METNetworkReachabilityManager.h in Headers */,
-				9FAB38DC1AE3E88200E99519 /* METMethodInvocation.h in Headers */,
 				9FAB38AF1AE3E88200E99519 /* METBufferedDocument.h in Headers */,
 				9FAB38BC1AE3E88200E99519 /* METDataUpdate.h in Headers */,
 				9FAB38CB1AE3E88200E99519 /* METDocumentCache.h in Headers */,

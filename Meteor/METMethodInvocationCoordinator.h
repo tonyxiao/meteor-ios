@@ -36,7 +36,7 @@ typedef void (^METMethodInvocationBlock)(METMethodInvocation *methodInvocation);
 
 - (void)defineStubForMethodWithName:(NSString *)methodName usingBlock:(METMethodStub)stub;
 
-- (id)callMethodWithName:(NSString *)methodName parameters:(NSArray *)parameters options:(METMethodCallOptions)options receivedResultHandler:(METMethodCompletionHandler)receivedResultHandler completionHandler:(METMethodCompletionHandler)completionHandler methodStub:(METMethodStub)stub;
+- (id)callMethodWithName:(NSString *)methodName parameters:(nullable NSArray *)parameters options:(METMethodCallOptions)options receivedResultHandler:(nullable METMethodCompletionHandler)receivedResultHandler completionHandler:(nullable METMethodCompletionHandler)completionHandler methodStub:(nullable METMethodStub)stub;
 
 @property(strong, nonatomic, readonly) METMethodInvocationContext *currentMethodInvocationContext;
 
@@ -45,8 +45,8 @@ typedef void (^METMethodInvocationBlock)(METMethodInvocation *methodInvocation);
 - (void)addMethodInvocation:(METMethodInvocation *)methodInvocation;
 - (METMethodInvocation *)methodInvocationForMethodID:(NSString *)methodID;
 
-- (void)handleResult:(id)result error:(NSError *)error forMethodID:(NSString *)methodID completion:(METMethodInvocationBlock)completion;
-- (void)handleUpdatesDoneForMethodID:(NSString *)methodID completion:(METMethodInvocationBlock)completion;
+- (void)handleResult:(nullable id)result error:(nullable NSError *)error forMethodID:(NSString *)methodID completion:(nullable METMethodInvocationBlock)completion;
+- (void)handleUpdatesDoneForMethodID:(NSString *)methodID completion:(nullable METMethodInvocationBlock)completion;
 
 - (void)resetWhileAddingMethodInvocationsToTheFrontOfTheQueueUsingBlock:(void (^)())block;
 

@@ -37,8 +37,8 @@ typedef void (^METSubscriptionBlock)(METSubscription *subscription);
 - (METSubscription *)subscriptionForSubscriptionID:(NSString *)subscriptionID;
 - (void)removeSubscription:(METSubscription *)subscription;
 
-- (void)handleReadyForSubscriptionWithID:(NSString *)subscriptionID completion:(METSubscriptionBlock)completion;
-- (void)handleNosubForSubscriptionWithID:(NSString *)subscriptionID error:(NSError *)error completion:(METSubscriptionBlock)completion;
+- (void)handleReadyForSubscriptionWithID:(NSString *)subscriptionID completion:(nullable METSubscriptionBlock)completion;
+- (void)handleNosubForSubscriptionWithID:(NSString *)subscriptionID error:(nullable NSError *)error completion:(nullable METSubscriptionBlock)completion;
 
 - (void)reviveReadySubscriptionsAfterReconnect;
 

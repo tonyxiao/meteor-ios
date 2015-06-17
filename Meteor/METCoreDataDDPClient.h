@@ -29,8 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface METCoreDataDDPClient : METDDPClient
 
-- (instancetype)initWithConnection:(METDDPConnection *)connection managedObjectModel:(NSManagedObjectModel *)managedObjectModel;
-- (instancetype)initWithConnection:(METDDPConnection *)connection account:(METAccount *)account managedObjectModel:(NSManagedObjectModel *)managedObjectModel;
+- (instancetype)initWithServerURL:(NSURL *)serverURL account:(nullable METAccount *)account managedObjectModel:(nullable NSManagedObjectModel *)managedObjectModel;
+- (instancetype)initWithConnection:(METDDPConnection *)connection managedObjectModel:(nullable NSManagedObjectModel *)managedObjectModel;
+- (instancetype)initWithConnection:(METDDPConnection *)connection account:(nullable METAccount *)account managedObjectModel:(NSManagedObjectModel *)managedObjectModel;
 
 @property (strong, nonatomic, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (strong, nonatomic, readonly) NSManagedObjectModel *managedObjectModel;
